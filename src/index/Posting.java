@@ -14,7 +14,9 @@ public class Posting {
   public void addDoc(int docID)
   {
 	  PostingEntry entry = new PostingEntry(docID);
-      docList.add(entry);
+      
+	  if (!docList.contains(entry))
+		  docList.add(entry);
   }
   
   public List<PostingEntry> getDocList()
