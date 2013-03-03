@@ -16,6 +16,9 @@ public class PostingTest {
 		p.addDoc(docID);
 		
 		assertEquals("Adding docID", true, p.getDocList().contains(new PostingEntry(docID) ));
+		
+		p.addDoc(docID);
+		assertEquals("Adding docID", true, p.getDocList().size() ==1);// adding a the same docID should have no effects.
 	}
 
 }
