@@ -4,10 +4,16 @@ public class PostingEntry implements Comparable<PostingEntry>{
 	
 	int docID;
 	
+	public int getDocID() {
+		return docID;
+	}
+
+
 	public PostingEntry(int docID)
 	{
 		this.docID = docID;
 	}
+	
 	
 	@Override
 	public int compareTo(PostingEntry o) {
