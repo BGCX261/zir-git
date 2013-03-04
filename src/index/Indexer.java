@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Map;
 
 public class Indexer {
-	Map<Term,Posting> dictionary;
-	List<Posting> postings;
-	
-	int currentDocID = 0;
-	
+	Index index;
 	public Indexer()
 	{
-		dictionary = new HashMap<>();
-		postings = new LinkedList<>();
+	  this.index = new Index();
+	}
+	
+	public Indexer(Index index)
+	{
+		this.index = index;
 	}
 	
 	public void add(String token , int docID)
@@ -23,36 +23,27 @@ public class Indexer {
 	  	Term term = new Term(token);
 	  	Posting posting = null;
 	  	
-	  	if (!dictionary.containsKey(term))
+	  	if (!index.dictionary.containsKey(term))
 	  	{
 	  		posting = new Posting();
-	  		postings.add(posting);
-	  		dictionary.put(term, posting);
+	  		index.postings.add(posting);
+	  		index.dictionary.put(term, posting);
 	  	} else{ 
-	  		posting = dictionary.get(term);
+	  		posting = index.dictionary.get(term);
 	  	}
 	  	
 	  	posting.addDoc(docID);
+	  	term.freq = posting.getDocList().size();
 	  	
 	}
 	
 	public void index(String document)
 	{
-		int docID = currentDocID++;
+		int docID = index.currentDocID++;
 		
 		for (String token : Tokenizer.tokenize(document))
 		{
 			add(token, docID);
 		}
-	}
-	
-	public Posting getPosting(Term term)
-	{
-		return dictionary.get(term);
-	}
-	
-	public Posting getPosting(String token)
-	{
-		return getPosting(new Term(token));
 	}
 }
