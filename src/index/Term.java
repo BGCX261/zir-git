@@ -26,6 +26,7 @@ String token;
   public Term(String token)
   {
 	  this.token = token;
+	  this.freq = 1;
   }
   
   @Override
